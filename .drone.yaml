@@ -8,3 +8,10 @@ steps:
   commands:
   - go test
   - go build
+
+---
+kind: gate
+name: approval
+
+depends_on:
+  - test
