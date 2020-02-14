@@ -9,9 +9,13 @@ steps:
   - go test
   - go build
 
----
-kind: gate
-name: approval
-
-depends_on:
-  - test
+- name: deploy_production
+  image: pelotech/drone-helm3
+  settings:
+    helm_command: upgrade
+    chart: stable/node-problem-detector
+    release: npd
+    api_server:
+      from_secret: prod_api_server
+    kubernetes_token:
+      from_secret: prod_kubernetes_token
